@@ -172,12 +172,12 @@ export default function InsightsPage() {
             {hasHistory ? (
               <>
                 <WeeklyBarChart bars={trendBars} />
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: "16px", marginTop: "24px" }}>
-                  <div>
+                <div className="sleep-real-stats">
+                  <div className="sleep-real-stat">
                     <span className="kicker">Maior descanso</span>
                     <h4>{bestSleep ? formatDurationFromHours(bestSleep) : "Nao informado"}</h4>
                   </div>
-                  <div>
+                  <div className="sleep-real-stat">
                     <span className="kicker">Menor descanso</span>
                     <h4>{worstSleep ? formatDurationFromHours(worstSleep) : "Nao informado"}</h4>
                   </div>

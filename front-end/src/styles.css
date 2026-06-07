@@ -325,7 +325,9 @@ img { max-width: 100%; display: block; }
 .round-icon--tertiary { color: var(--tertiary); background: var(--tertiary-container); }
 
 .weekly-card { grid-column: 1 / -1; padding: 40px; background: var(--surface-high); }
-.section-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 36px; }
+.section-heading { display: flex; align-items: center; justify-content: space-between; gap: 18px; min-width: 0; margin-bottom: 36px; }
+.section-heading > div { min-width: 0; }
+.section-heading h3 { margin: 0; overflow-wrap: normal; word-break: normal; }
 .section-heading p { margin: 6px 0 0; color: var(--muted); font-size: 14px; font-weight: 600; }
 .bar-chart { height: 220px; display: flex; align-items: flex-end; gap: 18px; padding: 0 16px; }
 .bar-chart__item { flex: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 16px; }
@@ -377,6 +379,38 @@ img { max-width: 100%; display: block; }
 }
 .insight-trend { grid-column: span 7; padding: 40px; background: var(--surface-high); }
 .bar-chart--compact { height: 180px; }
+.insight-chart {
+  grid-column: span 7;
+  min-width: 0;
+  padding: 40px;
+  overflow: hidden;
+}
+.insight-chart .section-heading .badge {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+.sleep-real-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+.sleep-real-stat {
+  min-width: 0;
+  padding: 20px;
+  border-radius: 24px;
+  background: var(--surface-low);
+}
+.sleep-real-stat .kicker {
+  white-space: nowrap;
+}
+.sleep-real-stat h4 {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.2;
+  overflow-wrap: normal;
+  word-break: normal;
+}
 .insight-panel, .recommendation-card { grid-column: span 5; padding: 32px; }
 .insight-list { display: flex; flex-direction: column; gap: 18px; }
 .insight-list__item {
@@ -1008,7 +1042,7 @@ img { max-width: 100%; display: block; }
   .page-header, .tip-card, .save-panel, .landing-footer { flex-direction: column; align-items: flex-start; }
   .page-header .btn { width: 100%; }
   .dashboard-grid, .diary-grid, .profile-grid, .profile-metrics, .feature-grid, .register-page, .login-page, .insights-grid, .insight-metrics, .history-summary { grid-template-columns: 1fr; }
-  .sleep-score, .summary-card, .weekly-card, .tip-card, .sleep-duration, .quality-card, .stress-card, .habits-card, .feature-card, .feature-card--large, .feature-card--green, .feature-card--blue, .feature-card--wide, .insight-summary, .insight-trend, .insight-panel, .recommendation-card, .chart-placeholder { grid-column: auto; }
+  .sleep-score, .summary-card, .weekly-card, .tip-card, .sleep-duration, .quality-card, .stress-card, .habits-card, .feature-card, .feature-card--large, .feature-card--green, .feature-card--blue, .feature-card--wide, .insight-summary, .insight-trend, .insight-chart, .insight-panel, .recommendation-card, .chart-placeholder { grid-column: auto; }
   .summary-grid, .habit-list, .support-actions, .history-record, .history-record__metrics, .sleep-record-modal__grid, .sleep-record-modal__grid--wide, .diary-form-grid { grid-template-columns: 1fr; }
   .date-block { text-align: left; }
   .history-filters { justify-content: flex-start; }
@@ -1057,7 +1091,7 @@ img { max-width: 100%; display: block; }
   .hero-actions, .landing-footer nav { width: 100%; flex-direction: column; }
   .hero-actions .btn, .landing-footer nav a { width: 100%; }
   .dashboard-grid, .diary-grid, .insights-grid { gap: 20px; }
-  .sleep-score, .summary-card, .weekly-card, .sleep-duration, .quality-card, .stress-card, .habits-card, .tip-card, .feature-card, .register-card, .login-card, .support-card .card, .insight-summary, .insight-trend, .insight-panel, .recommendation-card, .chart-placeholder, .history-panel, .history-week-card { padding: 24px; }
+  .sleep-score, .summary-card, .weekly-card, .sleep-duration, .quality-card, .stress-card, .habits-card, .tip-card, .feature-card, .register-card, .login-card, .support-card .card, .insight-summary, .insight-trend, .insight-chart, .insight-panel, .recommendation-card, .chart-placeholder, .history-panel, .history-week-card { padding: 24px; }
   .insight-summary { min-height: auto; }
   .insight-summary h3 { font-size: 28px; }
   .insight-summary__score { flex-direction: column; align-items: flex-start; gap: 6px; }
@@ -1082,7 +1116,10 @@ img { max-width: 100%; display: block; }
   .metric-card strong { font-size: 32px; }
   .efficiency-card { align-items: flex-start; flex-wrap: wrap; }
   .efficiency-card strong { width: 100%; margin-left: 64px; }
-  .section-heading { align-items: flex-start; gap: 16px; margin-bottom: 28px; }
+  .section-heading { align-items: flex-start; flex-wrap: wrap; gap: 16px; margin-bottom: 28px; }
+  .sleep-real-stats { grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
+  .sleep-real-stat { padding: 18px; }
+  .sleep-real-stat h4 { font-size: 22px; }
   .bar-chart { gap: 8px; padding: 0; }
   .bar-chart__item { gap: 10px; }
   .tip-card { gap: 22px; }
@@ -1148,6 +1185,7 @@ img { max-width: 100%; display: block; }
   .sleep-score { grid-column: span 6; }
   .summary-card { grid-column: span 6; }
   .insight-metrics { grid-template-columns: 1fr; }
+  .sleep-real-stats { grid-template-columns: 1fr; }
   .history-record { grid-template-columns: 1fr; align-items: stretch; }
   .profile-grid { gap: 32px; }
   .profile-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
