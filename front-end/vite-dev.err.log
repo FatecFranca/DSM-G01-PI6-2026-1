@@ -1,0 +1,9 @@
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+[2m10:56:06[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /user[39m
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+[2m10:56:22[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /login[39m
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)

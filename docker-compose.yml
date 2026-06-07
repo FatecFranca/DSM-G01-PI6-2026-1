@@ -1,0 +1,65 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: sleep-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  backend:
+    build:
+      context: ./back-end
+      dockerfile: Dockerfile
+    container_name: sleep-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - PI_DB_HOST=${PI_DB_HOST}
+      - PI_DB_PORT=${PI_DB_PORT}
+      - PI_DB_NAME=${PI_DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - RabbitMq__Host=rabbitmq
+      - RabbitMq__Port=5672
+      - RabbitMq__Username=guest
+      - RabbitMq__Password=guest
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  ai-service:
+    build:
+      context: ./data-mining-ai
+      dockerfile: Dockerfile
+    container_name: sleep-ai-service
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      backend:
+        condition: service_started
+
+  frontend:
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+    container_name: sleep-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
