@@ -95,6 +95,49 @@ Banco de Dados (MySQL)
 
 ---
 
+## Visão geral do projeto
+
+Este projeto integra várias camadas para oferecer suporte à captura, análise e visualização de dados de sono e bem-estar:
+
+- `front-end/`: aplicação web em React com Vite para o dashboard e visualização de resultados.
+- `mobile/`: aplicativo Flutter para acesso móvel e registro de dados no dispositivo.
+- `back-end/`: API em .NET 8 responsável por autenticação, regras de negócio e persistência.
+- `data-mining-ai/`: notebooks e serviço Python que realizam pré-processamento, classificação e análise de sono com suporte RabbitMQ.
+- `docker-compose.yml`: orquestra os contêineres de backend, RabbitMQ, serviço AI e frontend.
+
+## Estrutura do repositório
+
+- `back-end/`: código fonte da API, solução `sleep_api.slnx`, camadas de domínio, aplicação, infraestrutura e testes.
+- `front-end/`: interface web, componentes React, páginas, serviços de API e configuração Vite.
+- `mobile/`: app Flutter, configuração de build, dependências e assets para Android, iOS e web.
+- `data-mining-ai/`: análise de dados, scripts Python, notebooks Jupyter e serviço RabbitMQ para processamento inteligente.
+- `documentacao/`: diagramas, relatórios técnicos e material de suporte à documentação do projeto.
+
+## Tecnologias utilizadas
+
+- Backend: .NET 8, ASP.NET Core, C#
+- Frontend: React, Vite, JavaScript
+- Mobile: Flutter, Dart
+- Data mining: Python, Jupyter Notebook
+- Mensageria: RabbitMQ
+- Containerização: Docker, Docker Compose
+- Banco de dados: MySQL (via configuração de ambiente)
+
+## Como executar localmente
+
+1. Configure as variáveis de ambiente necessárias para o banco de dados e autenticação no arquivo `.env` ou no ambiente do sistema.
+2. No diretório raiz do projeto, execute:
+   `docker compose up --build`
+3. Aguarde a inicialização dos serviços e acesse as portas:
+   - Web frontend: `http://localhost`
+   - API backend: `http://localhost:8080`
+   - RabbitMQ Management: `http://localhost:15672`
+4. O serviço de AI se conecta ao RabbitMQ para processar dados de sono e enviar resultados ao backend.
+
+> Observação: em ambientes Windows, verifique se o host `host.docker.internal` está disponível para comunicação entre contêineres e serviços locais.
+
+---
+
 ## Diagrama do Banco de dados
 ![Diagrama banco de dados](https://github.com/viivi02/Projeto-interdisciplinar-6Sem/blob/0297940f39d24f1556e9b56410b40df7966e5f45/documentacao/diagrama_l%C3%B3gico.png)
 
