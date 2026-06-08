@@ -1,4 +1,4 @@
-﻿using Sleep.Domain.Entities;
+﻿using Sleep.Domain.Dtos;
 
 namespace Sleep.Domain.Repositories.SleepAnalysis
 {
@@ -6,5 +6,7 @@ namespace Sleep.Domain.Repositories.SleepAnalysis
     {
         Task<Entities.SleepAnalysis?> GetBySleepRecordId(long sleepRecord);
         Task<IReadOnlyList<Entities.SleepAnalysis>> ListByUserIdAsync(long userId);
+        Task<List<SleepAnalysisScoreDto>> GetAnalysisById(long sleepRecordId);
+        Task<List<SleepAnalysisScoreDto>> GetAnalysisByIds(List<long> sleepRecordIds);
     }
 }
