@@ -35,6 +35,16 @@ function getFormattedCurrentDate(date = new Date()) {
   });
 }
 
+function normalizeSleepScore(value) {
+  const score = Number(value);
+
+  if (!Number.isFinite(score)) {
+    return null;
+  }
+
+  return score <= 10 ? Math.round(score * 10) : Math.round(score);
+}
+
 export default function DashboardPage() {
   const currentUser = getCurrentUser();
   const [currentDate, setCurrentDate] = useState(() => new Date());
@@ -44,8 +54,7 @@ export default function DashboardPage() {
   const formattedCurrentDate = getFormattedCurrentDate(currentDate);
   const bars = buildWeeklyBars(historyRecords);
   const latestRecord = historyRecords[0] || null;
-  const averageScoreNumber = Number(insights?.averageScore);
-  const averageScore = Number.isFinite(averageScoreNumber) ? Math.round(averageScoreNumber) : null;
+  const averageScore = normalizeSleepScore(insights?.averageScore);
   const averageSleep = formatDurationFromHours(insights?.averageSleep);
 
   const handleAddSleepData = () => {

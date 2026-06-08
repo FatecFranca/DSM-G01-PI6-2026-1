@@ -8,6 +8,16 @@ import { getInsights, getSleepHistory } from "../services/api.js";
 import { buildWeeklyBars, calculateGoalCount } from "../utils/sleepAnalytics.js";
 import { formatDurationFromHours } from "../utils/sleepFormatting.js";
 
+function normalizeSleepScore(value) {
+  const score = Number(value);
+
+  if (!Number.isFinite(score)) {
+    return null;
+  }
+
+  return score <= 10 ? score * 10 : score;
+}
+
 function getRestLevel(score) {
   const value = Number(score);
 
@@ -29,12 +39,13 @@ export default function InsightsPage() {
   const displayedRecommendations = Array.isArray(insights?.recommendations) ? insights.recommendations : [];
   const trendBars = buildWeeklyBars(historyRecords);
   const averageSleep = formatDurationFromHours(insights?.averageSleep);
-  const averageScore = Number.isFinite(Number(insights?.averageScore))
-    ? `${Math.round(Number(insights.averageScore))}%`
+  const averageScoreValue = normalizeSleepScore(insights?.averageScore);
+  const averageScore = Number.isFinite(Number(averageScoreValue))
+    ? `${Math.round(Number(averageScoreValue))}%`
     : "Nao informado";
   const nightsInGoal = calculateGoalCount(historyRecords, 7);
   const goalProgress = historyRecords.length > 0 ? Math.round((nightsInGoal / historyRecords.length) * 100) : undefined;
-  const restLevel = getRestLevel(insights?.averageScore);
+  const restLevel = getRestLevel(averageScoreValue);
   const validDurations = historyRecords
     .map((record) => Number(record.durationInHours))
     .filter((duration) => Number.isFinite(duration) && duration > 0);
