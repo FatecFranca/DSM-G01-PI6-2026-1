@@ -8,19 +8,6 @@ import { getInsights, getSleepHistory } from "../services/api.js";
 import { buildWeeklyBars, calculateGoalCount } from "../utils/sleepAnalytics.js";
 import { formatDurationFromHours } from "../utils/sleepFormatting.js";
 
-function buildQuickInsights(patterns) {
-  if (!Array.isArray(patterns) || patterns.length === 0) {
-    return [];
-  }
-
-  return patterns.map((pattern, index) => ({
-    icon: index === 0 ? "psychology" : "schedule",
-    title: pattern,
-    text: "Padrao identificado a partir dos registros recebidos do backend.",
-    tone: index % 2 === 0 ? "primary" : "secondary"
-  }));
-}
-
 function getRestLevel(score) {
   const value = Number(score);
 
@@ -40,7 +27,6 @@ export default function InsightsPage() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const displayedRecommendations = Array.isArray(insights?.recommendations) ? insights.recommendations : [];
-  const displayedQuickInsights = buildQuickInsights(insights?.patterns);
   const trendBars = buildWeeklyBars(historyRecords);
   const averageSleep = formatDurationFromHours(insights?.averageSleep);
   const averageScore = Number.isFinite(Number(insights?.averageScore))
@@ -116,8 +102,8 @@ export default function InsightsPage() {
             <h3>{hasHistory ? "Resumo baseado nos registros recebidos" : "Sem dados suficientes"}</h3>
             <p>
               {hasHistory
-                ? "Os indicadores abaixo usam exclusivamente os dados reais retornados pelo backend."
-                : "Quando houver mais registros no backend, esta tela exibira os insights automaticamente."}
+                ? "Os indicadores abaixo usam exclusivamente os dados reais retornados."
+                : "Quando houver mais registro, esta tela exibira os insights automaticamente."}
             </p>
             <div className="insight-summary__score">
               <strong>{averageScore}</strong>
@@ -189,31 +175,6 @@ export default function InsightsPage() {
                 <p>Nenhum registro de sono suficiente foi encontrado ainda.</p>
               </div>
             )}
-          </section>
-
-          <section className="card insight-panel">
-            <div className="card-title-row">
-              <div>
-                <h3>Interpretacoes rapidas</h3>
-                <p>O que os dados recentes sugerem</p>
-              </div>
-              <span className="round-icon round-icon--primary">
-                <MaterialIcon>psychology</MaterialIcon>
-              </span>
-            </div>
-            <div className="insight-list">
-              {displayedQuickInsights.length > 0 ? displayedQuickInsights.map((item) => (
-                <article className="insight-list__item" key={item.title}>
-                  <span className={`round-icon round-icon--${item.tone}`}>
-                    <MaterialIcon>{item.icon}</MaterialIcon>
-                  </span>
-                  <div>
-                    <h4>{item.title}</h4>
-                    <p>{item.text}</p>
-                  </div>
-                </article>
-              )) : <p>Nenhum padrao disponivel no momento.</p>}
-            </div>
           </section>
 
           <section className="card recommendation-card">
