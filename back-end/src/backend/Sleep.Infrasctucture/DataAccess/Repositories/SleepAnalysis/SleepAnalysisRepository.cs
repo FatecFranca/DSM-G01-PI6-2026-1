@@ -46,6 +46,7 @@ namespace Sleep.Infrasctructure.DataAccess.Repositories.SleepAnalysis
                 .Where(r => r.SleepRecordId == sleepRecord)
                 .FirstOrDefaultAsync();
         }
+        
 
         public async Task<IReadOnlyList<Domain.Entities.SleepAnalysis>> ListByUserIdAsync(long userId)
         {
