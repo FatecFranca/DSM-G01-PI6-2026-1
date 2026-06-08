@@ -331,7 +331,7 @@ img { max-width: 100%; display: block; }
 .section-heading p { margin: 6px 0 0; color: var(--muted); font-size: 14px; font-weight: 600; }
 .bar-chart { height: 220px; display: flex; align-items: flex-end; gap: 18px; padding: 0 16px; }
 .bar-chart__item { flex: 1; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 16px; }
-.bar-chart__item span { width: 100%; border-radius: 999px; background: var(--surface-white); transition: background 180ms ease; }
+.bar-chart__item span { width: 100%; border-radius: 999px; background: var(--surface-low); transition: background 180ms ease; }
 .bar-chart__item.active span { background: var(--primary); }
 .bar-chart__item strong { color: var(--muted); font-size: 12px; }
 .bar-chart__item.active strong { color: var(--primary); }
